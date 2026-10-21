@@ -1,0 +1,22 @@
+VALIDASI INPUT KASIR IDRIS
+
+1. Validasi formulir aplikasi sudah ditambahkan pada www/index.html:
+   - harga jual wajib lebih dari Rp0;
+   - modal wajib diisi dan tidak boleh negatif;
+   - modal Rp0 tetap diizinkan untuk barang gratis;
+   - jika modal lebih besar dari harga jual, aplikasi memperingatkan sebelum menyimpan;
+   - pencarian produk mendukung nama dan barcode.
+
+2. Untuk validasi tambahan di database, buka Supabase SQL Editor:
+   https://supabase.com/dashboard/project/_/sql/new
+   Buka file SUPABASE_VALIDASI_PRODUK.sql, salin seluruh isinya, lalu Run.
+   SQL menambahkan CHECK constraint untuk mencegah harga jual nol/negatif
+   dan modal negatif pada produk dan item transaksi. SQL tidak menghapus data.
+
+3. CHECK constraint dibuat NOT VALID agar data lama yang sudah ada tidak
+   membuat pemasangan aturan gagal. Aturan tetap berlaku untuk INSERT/UPDATE
+   baru. Jika ada baris lama yang tidak valid, koreksi dulu secara terpisah.
+
+4. Modal lebih besar dari harga jual hanya memunculkan peringatan aplikasi,
+   tidak ditolak otomatis oleh database, karena bisa jadi memang disengaja.
+   Selalu cek ulang backup sebelum deploy dan uji di proyek/staging bila ada.

@@ -1,0 +1,9 @@
+PENAMBAHAN KASIR IDRIS — LAPORAN DAN PEMBELIAN STOK
+
+1. Hapus transaksi menghapus sale_items lalu sales dari Supabase. Jika policy RLS menolak atau server gagal, transaksi tidak dihapus dari tampilan lokal.
+2. Sebelum penghapusan, aplikasi mencoba menyimpan salinan ringkas ke deleted_sales_history. Riwayat hapus bukan sumber pendapatan aktif.
+3. Pembelian stok meminta modal beli per unit, menyimpan qty, modal per unit dan total modal ke tabel stock_purchases, serta memperbarui stok produk.
+4. Laporan menampilkan estimasi modal stok aktif, pembelian stok bulan terpilih, laba setelah pengeluaran, dan grafik 7 hari (penjualan/laba/pembelian/pendapatan bersih).
+5. Supabase Realtime berlangganan perubahan sales, sale_items, expenses, products, stock_purchases. Perlu menjalankan SQL setup, dan Realtime/RLS tetap aktif.
+6. Estimasi titik impas bukan laporan akuntansi penuh: nilai laba transaksi dikurangi pengeluaran tercatat. Modal stok saat ini adalah biaya modal stok yang masih tersedia, bukan modal awal usaha.
+7. Uji perangkat nyata setelah deploy: gunakan transaksi contoh, hapus transaksi contoh, lalu pastikan hilang dari tabel sales dan sale_items serta angka laporan berubah.

@@ -1,0 +1,12 @@
+KASIR IDRIS - CETAK STRUK DENGAN 2 PILIHAN
+
+Di pratinjau struk sekarang tersedia:
+1. Cetak Printer
+2. Simpan PDF
+
+Kedua pilihan membuka dialog cetak Android. Untuk mencetak kertas, pilih printer yang tersedia.
+Untuk menyimpan PDF, pilih "Simpan sebagai PDF" pada pilihan tujuan/printer, lalu simpan file.
+
+Penting:
+- Perlu build APK baru dan instal APK hasil build.
+- Tombol Cetak Printer tidak menjamin pencetakan Bluetooth langsung otomatis. Untuk cetak Bluetooth langsung tanpa dialog, perlu integrasi SDK/protokol yang sesuai dengan model printer. Printer pengguna diketahui VSC TM-58V 58mm, tetapi koneksi (Bluetooth/USB) perlu dipastikan dan dukungan spesifik belum diuji.

@@ -1,0 +1,20 @@
+{
+  "name": "kasir-idris-android",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Android wrapper for Kasir Idris by Yoga Fernando",
+  "scripts": {
+    "build": "echo 'Web files are in www/'",
+    "build:biometric": "esbuild src/biometric-bridge.js --bundle --platform=browser --format=iife --outfile=www/biometric-bridge.js"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/core": "^6.2.1",
+    "@aparajita/capacitor-biometric-auth": "^6.0.0",
+    "@capacitor/local-notifications": "^6.1.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.1",
+    "esbuild": "^0.24.0"
+  }
+}

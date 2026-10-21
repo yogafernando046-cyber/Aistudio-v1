@@ -1,0 +1,17 @@
+PERBAIKAN REALTIME HAPUS TRANSAKSI — KASIR IDRIS
+
+Perilaku yang disiapkan:
+1. Hapus satu transaksi dan hapus semua transaksi meminta konfirmasi sebelum tindakan.
+2. Setelah hapus satu transaksi, notifikasi menyatakan penghapusan telah dikonfirmasi Supabase dan menawarkan pilihan: OK untuk memulihkan transaksi itu sekarang, Batal untuk menutup notifikasi.
+3. Setelah hapus semua transaksi, notifikasi menyatakan jumlah transaksi yang dihapus dan menawarkan pilihan untuk melihat arsip.
+4. Semua fungsi hapus satu, hapus semua, dan pulihkan hanya memerlukan login serta keanggotaan aktif pada toko yang sama; tidak membatasi role owner/manager/kasir.
+5. RLS tetap aktif. Penghapusan satu transaksi mengarsipkan transaksi agar bisa dipulihkan. Hapus semua hanya mengarsipkan maksimal lima transaksi terbaru.
+6. Aplikasi memuat ulang penjualan, arsip, pendapatan dan laporan setelah tindakan. Realtime untuk perangkat online memerlukan SQL di bawah sudah dijalankan di proyek Supabase yang benar.
+
+LANGKAH:
+1. Cadangkan proyek Supabase.
+2. Jalankan SUPABASE_PERBAIKAN_HAPUS_TRANSAKSI_ATOMIK.sql di SQL Editor Supabase.
+3. Build APK dari paket ini melalui GitHub Actions dan instal APK hasil build.
+4. Uji hapus satu transaksi percobaan terlebih dahulu. Pastikan transaksi hilang dari sales, muncul di deleted_sales, laporan omzet/laba diperbarui, lalu uji Pulihkan.
+
+Catatan: SQL belum dijalankan langsung ke proyek Supabase pengguna dan APK belum dibangun di perangkat. Jangan uji Hapus Semua pada data penting.

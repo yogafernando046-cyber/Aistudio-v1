@@ -1,0 +1,16 @@
+PERBAIKAN IKON APK KASIR IDRIS
+
+Build sebelumnya mengganti ic_launcher.png saja. Android versi baru biasanya
+menggunakan adaptive icon (ic_launcher.xml), sehingga ikon lama dapat tetap tampil.
+Workflow .github/workflows/main.yml kini mengganti ikon biasa dan adaptive.
+Ikon sumber tetap resources/kasir-idris-icon.png.
+
+CARA PAKAI:
+1. Ekstrak ZIP ini, lalu unggah ISI ZIP ke root repositori GitHub, bukan ZIP-nya saja.
+2. Pastikan workflow berada tepat di .github/workflows/main.yml.
+3. Buka Actions > Build Kasir Idris APK > Run workflow.
+4. Unduh artifact kasir-idris-debug-apk dari RUN yang paling baru.
+5. Pasang APK baru. APK lama tidak berubah otomatis.
+
+Jika Android menolak update karena tanda tangan berbeda, jangan hapus aplikasi lama
+sebelum memastikan data penting tersinkron/tersimpan.

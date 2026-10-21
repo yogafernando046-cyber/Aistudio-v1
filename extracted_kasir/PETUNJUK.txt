@@ -1,0 +1,16 @@
+CARA BUILD APK KASIR IDRIS
+
+1. Ekstrak ZIP ini. Unggah ISI folder proyek ke root repositori GitHub pada branch main (jangan unggah ZIP sumber sebagai file jika workflow ini digunakan).
+2. Pastikan file .github/workflows/main.yml berada di jalur tersebut. Tidak perlu membuat build-apk.yml kedua.
+3. Buka tab Actions > Build Kasir Idris APK > Run workflow pada branch main.
+4. Tunggu semua langkah hijau. Buka hasil run > Artifacts > kasir-idris-debug-apk untuk mengunduh APK.
+5. Instal APK baru di Android. Jika izin kamera tetap tidak muncul, hapus versi lama lalu instal APK terbaru dan cek Pengaturan > Aplikasi > Kasir Idris > Izin.
+
+Jangan mengunggah beberapa ZIP lama ke repositori; workflow ini sengaja membangun file sumber langsung agar tidak memilih arsip yang salah.
+
+PERBAIKAN HAPUS TRANSAKSI:
+1. Di Supabase > SQL Editor, buka dan jalankan SUPABASE_PERBAIKAN_HAPUS_TRANSAKSI_ATOMIK.sql satu kali.
+2. Pastikan query pemeriksaan di bagian akhir menampilkan tiga fungsi kasir_*.
+3. Setelah SQL berhasil, unggah isi ZIP ini ke alur deploy yang biasa dipakai.
+4. Uji hapus SATU transaksi percobaan, periksa sales, sale_items, deleted_sales dan laporan di dua HP.
+5. Jangan uji Hapus Semua dulu sampai uji hapus satu dan pulihkan berhasil.

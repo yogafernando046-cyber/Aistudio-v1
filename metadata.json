@@ -1,0 +1,6 @@
+{
+  "name": "Kasir Idris",
+  "description": "Aplikasi kasir modern terhubung Supabase dengan analitik laba real-time, manajemen stok, dan cetak struk",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

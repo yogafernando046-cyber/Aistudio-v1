@@ -1,0 +1,4 @@
+-- Gunakan skrip lengkap SUPABASE_PERBAIKAN_HAPUS_TRANSAKSI_ATOMIK.sql.
+-- Skrip lengkap mengatur tabel arsip, RLS untuk anggota aktif, fungsi RPC,
+-- hak akses berbasis anggota aktif, dan publication Supabase Realtime.
+-- Jangan menjalankan file setup lama ini secara terpisah.

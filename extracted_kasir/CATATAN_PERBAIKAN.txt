@@ -1,0 +1,41 @@
+CATATAN PERBAIKAN KASIR IDRIS — PAKET SUMBER
+
+Paket ini mempertahankan tampilan aplikasi dan menambahkan perbaikan berikut:
+1. Cetak ulang: struk selalu ditampilkan sebagai pratinjau di APK; pada browser, dialog cetak dipanggil. Untuk cetak fisik dari APK, hubungkan printer Bluetooth yang didukung.
+2. Kamera: pemindaian meminta izin kamera saat dibuka, menampilkan pesan yang jelas jika izin ditolak, dan workflow menambahkan CAMERA ke AndroidManifest. APK lama perlu diganti dengan APK hasil build terbaru.
+3. Login Cepat: Keluar tidak memanggil signOut Supabase saat Login Cepat aktif; Login Cepat memeriksa/mencoba memperbarui sesi dan tidak membuka aplikasi tanpa sesi valid. Jika refresh token sudah dicabut/kedaluwarsa, login manual tetap diperlukan.
+4. Workflow: hanya satu workflow main.yml yang digunakan; tidak memilih ZIP lama secara otomatis.
+
+PENTING: Ini ZIP SUMBER, bukan APK jadi. Build melalui GitHub Actions dan instal APK baru. Fitur kamera harus diuji di perangkat nyata; printer Bluetooth bergantung pada model printer dan dukungan Web Bluetooth.
+
+
+PERBAIKAN SINKRONISASI (16-10-2026)
+- Jika pemuatan sales dari Supabase berhasil, daftar transaksi lokal sekarang diganti dengan daftar server.
+- Transaksi yang sudah dihapus dari Supabase tidak lagi ditambahkan kembali dari cache lokal.
+- Jika query Supabase gagal, cache lokal tetap tidak diubah karena fungsi keluar melalui catch.
+- Karena pengguna mengonfirmasi seluruh transaksi sudah tersimpan di Supabase, server menjadi sumber utama riwayat.
+
+PERBAIKAN HAPUS TRANSAKSI (VERSI PEMBARUAN)
+- Tombol Hapus pada Riwayat Transaksi untuk hapus semua transaksi kini meminta konfirmasi khusus.
+- Aplikasi menghapus seluruh rincian penjualan pada public.sale_items berdasarkan store_id, lalu menghapus transaksi aktif pada public.sales berdasarkan store_id.
+- Cache lokal baru dikosongkan setelah Supabase mengonfirmasi penghapusan transaksi utama.
+- Setelah berhasil, laporan dan pendapatan bulanan dimuat ulang dari Supabase.
+- Maksimal lima transaksi terakhir dicoba disimpan ke public.deleted_sales_history sebagai arsip terpisah. Jika arsip gagal, kegagalan dicatat di console tetapi tidak menghalangi penghapusan data aktif.
+- Jika izin DELETE/RLS atau koneksi menolak penghapusan, aplikasi menampilkan error dan memuat ulang transaksi dari server.
+- Hapus produk tetap menghapus baris produk di Supabase dan tidak menghapus transaksi lama.
+
+PERBAIKAN HAPUS TRANSAKSI ATOMIK (PAKET INI)
+- Tombol hapus satu transaksi, hapus semua, dan pulihkan sekarang memakai fungsi SQL/RPC agar operasi inti dan arsip dijalankan dalam satu transaksi database.
+- Arsip aktif yang ditampilkan aplikasi bersumber dari public.deleted_sales saat server dapat diakses; cache lokal tidak boleh menghidupkan lagi arsip yang sudah dipulihkan.
+- SQL versi awal membatasi hapus/pulihkan ke owner/manager; pada versi perbaikan terbaru, hapus/pulihkan boleh untuk semua anggota toko yang aktif dan terautentikasi; RLS tetap aktif.
+- WAJIB jalankan SUPABASE_PERBAIKAN_HAPUS_TRANSAKSI_ATOMIK.sql di SQL Editor sebelum mengunggah/menggunakan versi ini. Jika belum, tombol akan menampilkan error dan tidak melakukan penghapusan melalui RPC.
+- SQL ini tidak mengembalikan stok saat transaksi dihapus; stok harus diperiksa terpisah agar tidak terjadi pengembalian ganda untuk transaksi yang sebelumnya sudah mengurangi stok.
+- Belum diuji langsung pada database Supabase pengguna. Uji satu transaksi percobaan terlebih dahulu dan cek sales, sale_items, deleted_sales, pendapatan, dan HP kedua sebelum memakai hapus semua.
+
+
+PERBAIKAN REALTIME LINTAS PERANGKAT (17-10-2026)
+- Aplikasi sekarang juga berlangganan perubahan public.deleted_sales. Perubahan arsip hapus/pulihkan memicu muat ulang penjualan aktif, arsip, dan pendapatan bulanan.
+- SQL atomik kini mempertahankan pemeriksaan auth.uid() dan keanggotaan toko aktif, tetapi tidak membatasi fitur berdasarkan role owner/manager.
+- SQL menambahkan sales, sale_items, deleted_sales, expenses, dan products ke publication supabase_realtime jika tabel belum terdaftar.
+- Anggota yang sedang online menerima perubahan setelah Supabase mengirim event; perangkat offline perlu dibuka ulang atau disinkronkan.
+- Belum dapat diuji langsung pada proyek Supabase pengguna. Jalankan SQL yang diperbarui sekali, pastikan query hasil pemeriksaan menunjukkan deleted_sales dan sales, lalu uji dengan transaksi percobaan. Jangan gunakan Hapus Semua sebagai uji pertama.

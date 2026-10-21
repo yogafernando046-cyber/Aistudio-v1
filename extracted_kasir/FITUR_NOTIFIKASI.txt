@@ -1,0 +1,5 @@
+Kasir Idris - notifikasi
+
+Ditambahkan notifikasi dalam aplikasi dan integrasi Capacitor Local Notifications untuk Android: transaksi sukses, kasbon, produk disimpan, member disimpan, shift dibuka/ditutup, stok menipis/habis, serta status sinkronisasi yang menunjukkan gagal/offline.
+
+Catatan: notifikasi Android bergantung pada izin pengguna, plugin yang berhasil disinkronkan oleh Capacitor, dan pengujian pada APK. Ini bukan push notification jarak jauh; notifikasi saat aplikasi benar-benar ditutup atau dari server memerlukan penjadwalan/FCM dan pengujian tambahan.
